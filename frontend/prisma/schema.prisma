@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Message {
+  id           String   @id @default(cuid())
+  text         String
+  role         String
+  createdAt    DateTime @default(now())
+  isBookmarked Boolean  @default(false)
+
+  pairedUserId String?
+  pairedUser   Message?  @relation("ConversationPair", fields: [pairedUserId], references: [id], onDelete: SetNull)
+  aiReplies    Message[] @relation("ConversationPair")
+
+  @@index([role, isBookmarked])
+  @@index([createdAt])
+}
+
+model Insight {
+  id         String   @id @default(cuid())
+  year       Int
+  month      Int
+  summary    String
+  topTheme   String
+  themeCount Int      @default(0)
+  teaching   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([year, month])
+}
+
+model LotusBloom {
+  id        String   @id @default(cuid())
+  message   String
+  createdAt DateTime @default(now())
+}

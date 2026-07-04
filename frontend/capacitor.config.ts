@@ -1,5 +1,5 @@
 const config = {
-  appId: "com.bunnoe.app",
+  appId: "com.kleshas.app",
   appName: "번뇌",
   webDir: "out",
   server: {

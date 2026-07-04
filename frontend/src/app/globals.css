@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --neon-cyan: #00f5ff;
-  --neon-pink: #ff2d95;
-  --void-bg: #0a0a0f;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Noto Serif KR", serif;
 }
 
 * {
@@ -18,12 +17,20 @@ html,
 body {
   height: 100%;
   overflow: hidden;
-  background: var(--void-bg);
-  color: #e0e0e8;
+  background-color: #fdfbf7;
+  background-image: radial-gradient(
+    circle at center,
+    rgba(6, 95, 70, 0.02) 0%,
+    transparent 50%
+  );
+  background-size: 150vw 150vw;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #1b1c1a;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* iOS WebView / Capacitor fixes */
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
@@ -31,7 +38,6 @@ body {
   overscroll-behavior: none;
 }
 
-/* Allow text selection inside chat messages & input */
 .selectable,
 input,
 textarea {
@@ -39,7 +45,6 @@ textarea {
   -webkit-user-select: text;
 }
 
-/* Safe area for notched iPhones */
 @supports (padding: env(safe-area-inset-top)) {
   body {
     padding-top: env(safe-area-inset-top);
@@ -49,14 +54,979 @@ textarea {
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
+/* ── 자연 배경: 하늘 + 초원 (부드러운 블렌드) ── */
+.nature-sky {
+  background-color: #d4e8f0;
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, #b8d4ea 0%, transparent 55%),
+    radial-gradient(ellipse 100% 60% at 80% 40%, rgba(200, 228, 210, 0.35) 0%, transparent 50%),
+    linear-gradient(
+      180deg,
+      #c0d8ea 0%,
+      #c8dff0 12%,
+      #d0e6f2 24%,
+      #d4e8ee 36%,
+      #d0ebe4 46%,
+      #c8e6d8 54%,
+      #bce0cc 62%,
+      #b0d8c4 72%,
+      #a4d0b8 82%,
+      #98c8ac 92%,
+      #90c4a4 100%
+    );
 }
-::-webkit-scrollbar-track {
+
+.nature-sky-shimmer {
+  background: radial-gradient(
+    ellipse 90% 50% at 50% 25%,
+    rgba(255, 255, 255, 0.28) 0%,
+    transparent 70%
+  );
+  animation: nature-breathe 140s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-sky-glow {
+  background: radial-gradient(
+    ellipse 70% 45% at 50% 55%,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 65%
+  );
+  animation: nature-glow-flow 160s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes nature-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.015) translateY(-0.3%);
+  }
+}
+
+@keyframes nature-glow-flow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateX(-2%) translateY(0);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateX(2%) translateY(-0.5%);
+  }
+}
+
+/* 물결처럼 흐르는 drift — linear 제거 */
+@keyframes nature-flow-x-a {
+  0%,
+  100% {
+    transform: translate3d(-6vw, 0, 0);
+  }
+  50% {
+    transform: translate3d(6vw, -0.6vh, 0);
+  }
+}
+
+@keyframes nature-flow-x-b {
+  0%,
+  100% {
+    transform: translate3d(5vw, 0.3vh, 0);
+  }
+  50% {
+    transform: translate3d(-5vw, -0.4vh, 0);
+  }
+}
+
+@keyframes nature-flow-x-c {
+  0%,
+  100% {
+    transform: translate3d(-4vw, 0.2vh, 0);
+  }
+  50% {
+    transform: translate3d(4vw, 0.5vh, 0);
+  }
+}
+
+.nature-drift-a {
+  animation: nature-flow-x-a 180s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-drift-b {
+  animation: nature-flow-x-b 220s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-drift-c {
+  animation: nature-flow-x-c 200s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes nature-float-soft-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.8vh);
+  }
+}
+
+@keyframes nature-float-soft-b {
+  0%,
+  100% {
+    transform: translateY(0.4vh);
+  }
+  50% {
+    transform: translateY(-0.5vh);
+  }
+}
+
+@keyframes nature-float-soft-c {
+  0%,
+  100% {
+    transform: translateY(-0.3vh);
+  }
+  50% {
+    transform: translateY(0.6vh);
+  }
+}
+
+.nature-float-a {
+  animation: nature-float-soft-a 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-float-b {
+  animation: nature-float-soft-b 34s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-float-c {
+  animation: nature-float-soft-c 31s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+/* 레거시 구름 클래스 — 미사용 */
+.nature-cloud-drift-1,
+.nature-cloud-drift-2,
+.nature-cloud-drift-3,
+.nature-cloud-drift-4 {
+  animation: none;
+}
+
+/* 산 · 언덕 — 잔잔한 흐름 */
+@keyframes nature-parallax-far {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-1%, -0.25%, 0) scale(1.004);
+  }
+}
+
+@keyframes nature-parallax-mid {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleY(1);
+  }
+  50% {
+    transform: translate3d(0.6%, -0.2%, 0) scaleY(1.006);
+  }
+}
+
+@keyframes nature-parallax-near {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleY(1);
+  }
+  50% {
+    transform: translate3d(-0.4%, -0.15%, 0) scaleY(1.004);
+  }
+}
+
+.nature-mountain-far {
+  animation: nature-parallax-far 130s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.nature-hill-mid {
+  animation: nature-parallax-mid 95s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.nature-hill-near {
+  animation: nature-parallax-near 75s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+/* 흐름 veil + 안개 */
+.nature-flow-veil {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 38%,
+    rgba(210, 235, 220, 0.14) 52%,
+    rgba(255, 255, 255, 0.05) 68%,
+    transparent 100%
+  );
+  animation: nature-veil-flow 110s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes nature-veil-flow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-0.8%);
+  }
+}
+
+.nature-horizon-mist {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 40%,
+    rgba(210, 235, 225, 0.28) 70%,
+    transparent 100%
+  );
+  filter: blur(28px);
+  animation: nature-mist-drift 100s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.nature-grass-mist {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(230, 245, 235, 0.22) 50%,
+    rgba(255, 255, 255, 0.15) 80%,
+    transparent 100%
+  );
+  filter: blur(24px);
+  animation: nature-mist-drift 85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite reverse;
+}
+
+@keyframes nature-mist-drift {
+  0%,
+  100% {
+    transform: translate3d(-4%, 0, 0) scaleY(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate3d(4%, -0.5%, 0) scaleY(1.03);
+    opacity: 0.65;
+  }
+}
+
+/* deprecated mountain classes kept for reduced-motion block */
+.nature-mountain-mid,
+.nature-mountain-near {
+  animation: none;
+}
+
+.nature-mist-1,
+.nature-mist-2 {
+  display: none;
+}
+
+/* 레거시 — nature-* 로 대체됨 */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .zen-text-mist {
+    animation: none;
+    opacity: 1;
+    filter: none;
+  }
+
+  .nature-sky-shimmer,
+  .nature-sky-glow,
+  .nature-drift-a,
+  .nature-drift-b,
+  .nature-drift-c,
+  .nature-float-a,
+  .nature-float-b,
+  .nature-float-c,
+  .nature-mountain-far,
+  .nature-hill-mid,
+  .nature-hill-near,
+  .nature-flow-veil,
+  .nature-horizon-mist,
+  .nature-grass-mist {
+    animation: none;
+  }
+
+  .animate-meditate-ring {
+    animation: none;
+    transform: scale(1);
+    opacity: 0.85;
+  }
+}
+
+.mist-gradient {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(210, 235, 225, 0.05) 100%
+  );
+}
+
+/* ── MZ Temple UI ── */
+.mz-ambient-ring {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: min(140vw, 520px);
+  height: min(140vw, 520px);
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  border: 1px solid rgba(6, 95, 70, 0.06);
+  background: radial-gradient(
+    circle,
+    rgba(6, 95, 70, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.zen-soft {
+  transition: all 300ms ease;
+}
+
+.msg-cyber-monk {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 95, 70, 0.1);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.05);
+}
+
+.msg-user {
+  background: rgba(245, 243, 239, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.zen-bubble,
+.glass-card,
+.glass-card-monk,
+.glass-card-user {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 95, 70, 0.1);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.05);
+}
+
+.panel-header {
+  background: rgba(251, 249, 245, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(190, 201, 194, 0.2);
+  box-shadow: none;
+}
+
+.panel-input {
+  background: linear-gradient(
+    to top,
+    rgba(251, 249, 245, 1) 0%,
+    rgba(251, 249, 245, 0.9) 60%,
+    transparent 100%
+  );
+  border: none;
+  box-shadow: none;
+}
+
+.panel-nav {
+  background: rgba(251, 249, 245, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(190, 201, 194, 0.1);
+  box-shadow: 0 -4px 12px rgba(6, 95, 70, 0.03);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.mz-input-shell {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 95, 70, 0.1);
+  box-shadow: 0 -4px 12px rgba(6, 95, 70, 0.03);
+}
+
+.ghost-input {
   background: transparent;
+  border: none;
+  border-bottom: 1px solid #065f46;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+}
+
+.ghost-input:focus {
+  border-bottom-width: 2px;
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.12);
+}
+
+.ghost-input::placeholder {
+  color: rgba(111, 121, 115, 0.5);
+}
+
+.mz-send-btn {
+  background: #065f46;
+  color: #ffffff;
+  transition: background 0.3s ease;
+}
+
+.mz-send-btn:hover:not(:disabled) {
+  background: #004532;
+}
+
+.mz-send-btn:disabled {
+  opacity: 0.4;
+}
+
+@keyframes mz-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-mz-fade-in {
+  animation: mz-fade-in 0.5s ease-out both;
+}
+
+/* 패널 — 레거시 호환 */
+.panel-input,
+.panel-nav {
+  border-color: rgba(190, 201, 194, 0.2);
+}
+
+/* 입력 — 레거시 zen-input 호환 */
+.zen-input-wrap {
+  border-bottom: none;
+}
+
+.zen-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.zen-input::placeholder {
+  color: rgba(111, 121, 115, 0.5);
+}
+
+/* BGM 패널 */
+.zen-panel-floating {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 95, 70, 0.1);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.08);
+}
+
+.glass-card:hover,
+.glass-card-monk:hover,
+.glass-card-user:hover {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.input-box {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.input-box:focus-within {
+  border: none;
+  box-shadow: none;
+}
+
+/* chat entry — tailwind animate-in 사용, 레거시 제거 */
+.animate-chat-entry {
+  animation: none;
+}
+
+/* 물안개 텍스트 — 더 부드럽게 */
+.zen-text-mist {
+  animation: zen-text-mist-in 1s ease-out 0.2s both;
+}
+
+@keyframes zen-text-mist-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes zen-text-breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.animate-zen-text-breathe {
+  animation: zen-text-breathe 3.2s ease-in-out infinite;
+}
+
+/* ── 명상 호흡 그래프 ── */
+.zen-breath-wave-text {
+  letter-spacing: 0.15em;
+  animation: zen-breath-wave 4s ease-in-out infinite;
+}
+
+@keyframes zen-breath-wave {
+  0%,
+  100% {
+    opacity: 0.35;
+    letter-spacing: 0.08em;
+  }
+  50% {
+    opacity: 1;
+    letter-spacing: 0.28em;
+  }
+}
+
+.zen-breath-dot {
+  transition: cx 150ms linear, cy 150ms linear;
+}
+
+.zen-breath-bar-in {
+  background: linear-gradient(90deg, #065f46, #10b981);
+}
+
+.zen-breath-bar-out {
+  background: linear-gradient(90deg, #10b981, #065f46);
+}
+
+/* ── 마음의 연못 ── */
+.lotus-pond-water {
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(6, 95, 70, 0.14) 0%,
+    rgba(6, 95, 70, 0.06) 55%,
+    rgba(253, 251, 247, 0.4) 100%
+  );
+  animation: lotus-pond-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes lotus-pond-shimmer {
+  0%,
+  100% {
+    box-shadow: inset 0 0 40px rgba(6, 95, 70, 0.06);
+  }
+  50% {
+    box-shadow: inset 0 0 56px rgba(6, 95, 70, 0.12);
+  }
+}
+
+.lotus-pond-decor {
+  transform-origin: center center;
+}
+
+@keyframes meditate-ring {
+  0%,
+  100% {
+    transform: scale(0.82);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+.animate-meditate-ring {
+  animation: meditate-ring 8s ease-in-out infinite;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* BGM vertical slider */
+.zen-volume-slider-vertical {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.zen-volume-slider-vertical::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #065f46;
+  border: 2px solid #fdfbf7;
+}
+
+.zen-volume-slider-vertical::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #065f46;
+  border: 2px solid #fdfbf7;
+}
+
+.zen-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(6, 95, 70, 0.15);
+  outline: none;
+}
+
+.zen-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #065f46;
+  cursor: pointer;
+}
+
+.zen-volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #065f46;
+  border: none;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 245, 255, 0.3);
+  background: rgba(111, 121, 119, 0.25);
   border-radius: 2px;
+}
+
+/* ── 오늘의 인연 (타로 카드) ── */
+.karma-spread {
+  --karma-card-w: 8.75rem;
+  --karma-card-h: 14rem;
+}
+
+@media (min-width: 768px) {
+  .karma-spread {
+    --karma-card-w: 11rem;
+    --karma-card-h: 17.5rem;
+  }
+}
+
+.karma-fan {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: calc(var(--karma-card-h) + 3rem);
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  perspective: 1400px;
+}
+
+@media (min-width: 768px) {
+  .karma-fan {
+    max-width: 28rem;
+    min-height: calc(var(--karma-card-h) + 4rem);
+  }
+}
+
+.karma-card-perspective {
+  position: absolute;
+  bottom: 0;
+  width: var(--karma-card-w);
+  height: var(--karma-card-h);
+  perspective: 1200px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 700ms ease,
+    filter 700ms ease;
+  will-change: transform, opacity;
+}
+
+.karma-card-perspective--slot-0 {
+  left: 50%;
+  transform: translateX(calc(-50% - 5rem)) rotate(-14deg) translateY(0.75rem);
+  z-index: 1;
+}
+
+.karma-card-perspective--slot-1 {
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg) translateY(-0.5rem);
+  z-index: 3;
+}
+
+.karma-card-perspective--slot-2 {
+  left: 50%;
+  transform: translateX(calc(-50% + 5rem)) rotate(14deg) translateY(0.75rem);
+  z-index: 2;
+}
+
+.karma-card-perspective--hoverable:hover {
+  transform: translateX(-50%) translateY(-1rem) scale(1.03) rotate(0deg);
+  z-index: 5;
+}
+
+.karma-card-perspective--slot-0.karma-card-perspective--hoverable:hover {
+  transform: translateX(calc(-50% - 5rem)) translateY(-0.25rem) rotate(-8deg)
+    scale(1.03);
+}
+
+.karma-card-perspective--slot-2.karma-card-perspective--hoverable:hover {
+  transform: translateX(calc(-50% + 5rem)) translateY(-0.25rem) rotate(8deg)
+    scale(1.03);
+}
+
+.karma-fan--revealed .karma-card-perspective--selected {
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.75rem) scale(1.08) rotate(0deg);
+  z-index: 10;
+}
+
+.karma-fan--revealed.karma-fan--single .karma-card-perspective {
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.75rem) scale(1.05) rotate(0deg);
+  position: relative;
+}
+
+.karma-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 1.125rem;
+  box-shadow:
+    0 4px 24px rgba(0, 69, 50, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.karma-card-inner--flipped {
+  transform: rotateY(180deg);
+}
+
+.karma-card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.125rem;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.karma-card-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(165deg, #0a3d2e 0%, #065f46 45%, #004532 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.karma-card-back-frame {
+  position: absolute;
+  inset: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.75rem;
+  pointer-events: none;
+}
+
+.karma-card-back-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.karma-card-back-symbol {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.karma-card-back-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+}
+
+.karma-card-front {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  background: linear-gradient(180deg, #fdfbf7 0%, #f5f0e8 100%);
+  border: 1px solid rgba(0, 69, 50, 0.08);
+}
+
+@media (min-width: 768px) {
+  .karma-card-front {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+.karma-card-quote {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.85;
+  color: #292524;
+  word-break: keep-all;
+}
+
+@media (min-width: 768px) {
+  .karma-card-quote {
+    font-size: 0.9375rem;
+  }
+}
+
+.karma-card-source {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 69, 50, 0.08);
+  text-align: center;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: #065f46;
+}
+
+.karma-card-fading {
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+  transform: translateX(-50%) translateY(2rem) scale(0.85) rotate(0deg) !important;
+}
+
+.karma-fan--revealed .karma-card-fading {
+  display: none;
+}
+
+.karma-reading {
+  margin-top: 2.5rem;
+  margin-inline: auto;
+  max-width: 22rem;
+  width: 100%;
+  padding: 1.75rem 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 69, 50, 0.06);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .karma-reading {
+    margin-top: 3rem;
+    max-width: 26rem;
+    padding: 2rem 2rem;
+  }
+}
+
+.karma-reading-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(0, 69, 50, 0.45);
+}
+
+.karma-reading-text {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.9;
+  color: #44403c;
+  word-break: keep-all;
+}
+
+@media (min-width: 768px) {
+  .karma-reading-text {
+    font-size: 1rem;
+  }
+}
+
+.karma-mist-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(253, 251, 247, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: karma-mist-lift 1200ms ease-in-out forwards;
+}
+
+@keyframes karma-mist-lift {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+  }
+}
+
+.karma-export-canvas {
+  width: 1080px;
+  height: 1920px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .karma-card-inner,
+  .karma-card-perspective,
+  .karma-mist-overlay {
+    animation: none;
+    transition: none;
+  }
+
+  .karma-card-fading {
+    opacity: 0;
+    filter: none;
+  }
 }
